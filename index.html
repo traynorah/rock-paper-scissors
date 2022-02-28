@@ -7,29 +7,46 @@
         <title>Rock Paper Scissors</title>
     </head>
     <script>
-        function playGame() {
-            const computerOptions = ["rock", "paper", "scissors"];
-            const computerPlay = computerOptions[Math.floor(Math.random() * computerOptions.length)];
-            console.log(computerPlay);
+        function game() {
+            let playerScore = 0;
+            let computerScore = 0;
+            let totalRounds = parseInt(prompt("How many rounds would you like to play?"));
+            console.log(totalRounds);
 
-            const playerSelection = prompt("What would you like to throw?").toLowerCase();
-            console.log(playerSelection);
+            function playRounds(totalRounds) {
+                for (let i = 0; i < totalRounds; i++) {
+                    const computerOptions = ["rock", "paper", "scissors"];
+                    const computerPlay = computerOptions[Math.floor(Math.random() * computerOptions.length)];
 
-            function playRound(playerSelection, computerPlay) {
-                if (playerSelection == computerPlay) {
-                    console.log(`Tie! You each threw ${playerSelection}.`);
+                    const playerSelection = prompt("What would you like to throw?").toLowerCase();
+
+                    function playRound(playerSelection, computerPlay) {
+                        if (playerSelection == "rock" && computerPlay == "scissors" || playerSelection == "paper" && computerPlay == "rock" || playerSelection == "scissors" && computerPlay == "paper") {
+                            playerScore++;
+                            console.log(`You threw ${playerSelection}, while the computer threw ${computerPlay}. You have won ${playerScore} times.`)
+                        }
+                        else if (playerSelection == "rock" && computerPlay == "paper" || playerSelection == "paper" && computerPlay =="scissors" || playerSelection == "scissors" && computerPlay == "rock") {
+                            computerScore++;
+                            console.log(`You threw ${playerSelection}, while the computer threw ${computerPlay}. The computer has won ${computerScore} times. Try again!`);
+                        }
+                        else {
+                            console.log(`Tie! You each threw ${playerSelection}.`);
+                        }
+                    }
+                    console.log(playRound(playerSelection, computerPlay));
                 }
-                else if (playerSelection == "rock" && computerPlay == "paper" || playerSelection == "paper" && computerPlay =="scissors" || playerSelection == "scissors" && computerPlay == "rock") {
-                    console.log(`You lose! You threw ${playerSelection}, while the computer threw ${computerPlay}. Try again!`);
+                if (playerScore > computerScore) {
+                    console.log(`You won with a score of ${playerScore}!`);
                 }
-                else if (playerSelection == "rock" && computerPlay == "scissors" || playerSelection == "paper" && computerPlay == "rock" || playerSelection == "scissors" && computerPlay == "paper") {
-                    console.log(`You win! You threw ${playerSelection}, while the computer threw ${computerPlay}.`)
+                else if (computerScore > playerScore) {
+                    console.log(`The computer beat you with a score of ${computerScore}, compared to your score of ${playerScore}.`);
+                }
+                else {
+                    console.log(`You each scored ${computerScore}... better luck next time.`)
                 }
             }
-            console.log(playRound(playerSelection, computerPlay));
+            playRounds(totalRounds);
         }
-
-/* play round */ 
-        console.log(playGame());
+        game();
     </script>
 </html>
